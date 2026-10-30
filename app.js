@@ -112,7 +112,7 @@ function card(l, now) {
       <div class="figures">
         <div class="fig"><small>${l.pk === 'map' ? 'Mise à prix' : 'Enchère'}</small><b>${euro(l.p)}</b></div>
         <div class="fig"><small>Plafond BCA</small><b>${euro(l.lim)}</b></div>
-        <div class="fig net"><small>Bénéfice estimé</small><b>${euro(l.net)}</b></div>
+        <div class="fig net"><small>${lvl === 'yellow' && Number.isFinite(l.net) ? 'Bénéfice au mieux' : 'Bénéfice estimé'}</small><b>${lvl === 'yellow' && Number.isFinite(l.net) ? '≤ ' : ''}${euro(l.net)}</b></div>
       </div>
       <p class="ct">🔧 ${esc(l.ct || 'CT à vérifier manuellement')}</p>
       ${l.kmw ? '<p class="kmw">⚠ km au CT supérieur au km annoncé</p>' : ''}

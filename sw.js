@@ -1,7 +1,7 @@
 // BCA Alertes — service worker : notifications push de la veille BénefClicAuto, appli hors ligne.
 import {store} from './db.js';
 
-const CACHE = 'bca-alertes-v1';
+const CACHE = 'bca-alertes-v2';
 const SHELL = ['./', './index.html', './app.css', './app.js', './db.js', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', e => {
@@ -28,7 +28,7 @@ function notice(data) {
     const l = data.lot;
     const kinds = {upgrade: 'Analyse complétée · ', price: 'Enchère changée · ', ending: 'Fin < 2 h · ', relist: 'Remis en vente · '};
     return {
-      title: `${l.lvl === 'green' ? '🟢' : '🟡 À vérifier'} ${kinds[data.kind] || ''}${l.v} — ${euro(l.net)}`,
+      title: `${l.lvl === 'green' ? '🟢' : '🟡 À vérifier'} ${kinds[data.kind] || ''}${l.v} — ${l.lvl !== 'green' && Number.isFinite(l.net) ? '≤ ' : ''}${euro(l.net)}`,
       options: {
         body: `${l.pk === 'map' ? 'Mise à prix' : 'Enchère'} ${euro(l.p)} · plafond ${euro(l.lim)} · ${l.ct || 'CT à vérifier'}`,
         tag: `lot-${l.key}`, renotify: true, requireInteraction: true,
