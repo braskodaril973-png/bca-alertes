@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0f1115">
+  <meta name="color-scheme" content="dark">
+  <title>BCA Alertes</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon-192.png">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <header class="top">
+    <img src="icon-192.png" alt="" class="logo" width="36" height="36">
+    <div class="brand"><strong>BCA Alertes</strong><span>Veille Alcopa · BénefClicAuto</span></div>
+    <button id="open-setup" class="icon-btn" aria-label="Réglages" title="Réglages">⚙</button>
+  </header>
+
+  <div id="signal" class="signal" role="status" hidden></div>
+
+  <section id="setup" class="card setup" hidden>
+    <h2>Mise en route</h2>
+    <ol class="steps">
+      <li id="step-install">
+        <b>Installer l’appli</b>
+        <p id="install-text">Menu ⋮ de Chrome → « Installer l’application » (ou « Ajouter à l’écran d’accueil »).</p>
+        <button id="install" class="btn" hidden>Installer</button>
+      </li>
+      <li id="step-key">
+        <b>Lien de la veille</b>
+        <p id="key-text">Ouvre ce téléphone sur le lien d’appairage envoyé par BénefClicAuto (Réglages de la veille → « Envoyer le lien sur Telegram »).</p>
+      </li>
+      <li id="step-push">
+        <b>Activer les alertes</b>
+        <p>Autorise les notifications : les bonnes affaires arriveront même téléphone verrouillé.</p>
+        <button id="subscribe" class="btn primary" disabled>Activer les alertes</button>
+      </li>
+      <li id="step-code" hidden>
+        <b>Code d’appairage</b>
+        <p>Envoie-le à ton PC (Partager → Telegram ou mail), puis colle-le dans BénefClicAuto → Réglages de la veille → « Appairer le téléphone ».</p>
+        <textarea id="code" readonly rows="4" aria-label="Code d’appairage"></textarea>
+        <div class="row">
+          <button id="share" class="btn primary">Partager</button>
+          <button id="copy" class="btn">Copier</button>
+        </div>
+      </li>
+    </ol>
+    <p id="setup-msg" class="msg" role="alert"></p>
+  </section>
+
+  <nav class="chips" aria-label="Filtres">
+    <button class="chip" data-filter="all" aria-pressed="true">Tous <span id="n-all"></span></button>
+    <button class="chip" data-filter="green" aria-pressed="false">🟢 Affaires <span id="n-green"></span></button>
+    <button class="chip" data-filter="yellow" aria-pressed="false">🟡 À vérifier <span id="n-yellow"></span></button>
+    <button class="chip" data-filter="soon" aria-pressed="false">⏱ Fin &lt; 24 h <span id="n-soon"></span></button>
+  </nav>
+
+  <main id="lots" class="lots" aria-live="polite"></main>
+  <p id="empty" class="empty" hidden>Aucune alerte pour l’instant. La veille t’enverra ici les lots à ≥ 800 € de bénéfice estimé.</p>
+
+  <section class="card messages" id="messages-card" hidden>
+    <h2>Messages de la veille</h2>
+    <ul id="messages"></ul>
+  </section>
+
+  <footer class="foot">Données gardées sur ce téléphone uniquement. Les montants sont des estimations BCA : vérifie la fiche avant d’enchérir.</footer>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
